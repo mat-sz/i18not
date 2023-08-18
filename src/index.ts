@@ -1,3 +1,5 @@
+import { rtlLanguages } from './consts.js';
+
 export interface I18NotOptions {
   ns?: string[];
   defaultNS: string;
@@ -187,6 +189,11 @@ export function getOptions() {
 
 export function getLanguage() {
   return _language;
+}
+
+export function getDir(): 'ltr' | 'rtl' {
+  const split = _language.split('-');
+  return rtlLanguages.includes(split[0]) ? 'rtl' : 'ltr';
 }
 
 export function getNamespace(namespace: string) {
