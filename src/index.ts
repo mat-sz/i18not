@@ -44,8 +44,11 @@ function detectLanguages(): string[] {
 
   const languages: string[] = [];
 
-  if (_options.fallbackLng) {
-    languages.push(_options.fallbackLng);
+  if (_options.localStorageKey && typeof localStorage !== 'undefined') {
+    const value = localStorage.getItem(_options.localStorageKey);
+    if (value) {
+      languages.push(value);
+    }
   }
 
   if (typeof navigator !== 'undefined') {
@@ -62,11 +65,8 @@ function detectLanguages(): string[] {
     }
   }
 
-  if (_options.localStorageKey && typeof localStorage !== 'undefined') {
-    const value = localStorage.getItem(_options.localStorageKey);
-    if (value) {
-      languages.push(value);
-    }
+  if (_options.fallbackLng) {
+    languages.push(_options.fallbackLng);
   }
 
   return processLanguageCodes(languages);
