@@ -17,6 +17,8 @@ export interface I18NotOptions {
   loadPath: string;
 
   localStorageKey?: string;
+
+  languages?: string[];
 }
 
 function processLanguageCodes(codes: string[]) {
@@ -34,7 +36,12 @@ function processLanguageCodes(codes: string[]) {
     languages.add(split[0]);
   }
 
-  return [...languages];
+  const out = [...languages];
+  if (_options?.languages) {
+    return out.filter(code => _options?.languages?.includes(code));
+  }
+
+  return out;
 }
 
 function detectLanguages(): string[] {
